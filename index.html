@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Hjelmstedt Joel">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/img/favicon/favicon.ico" rel="shortcut icon">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link href="assets/css/style.min.css"type="text/css" rel="stylesheet">
+	<title>aî.se by joelbeats</title>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<canvas id="matrixCanvas"></canvas> <!-- Existing Matrix canvas -->
+    <canvas id="textCanvas"></canvas> <!-- New canvas for the text animation -->
+    <script>
+        // ... Your existing Matrix canvas JavaScript code ...
+		window.onload = function() {
+
+var canvas = document.getElementById("canvas");
+
+effectMatrix(canvas);
+
+function effectMatrix(neo) {
+
+	var screen = window.screen;
+	var width = (neo.width = screen.width);
+	var height = (neo.height = screen.height);
+	var letters = Array(256).join(1).split("");
+
+	var designMatrix = function() {
+
+		neo.getContext("2d").fillStyle = "rgba(0,0,0,.05)";
+		neo.getContext("2d").fillRect(0, 0, width, height);
+
+		neo.getContext("2d").fillStyle = "#0F0";
+
+		letters.map(function (position_y, index) {
+
+			var text = String.fromCharCode(48 + Math.random() * 33);
+			var position_x = index * 10;
+			neo.getContext("2d").fillText(text, position_x, position_y);
+
+			letters[index] = position_y > 758 + Math.random() * 1e4 ? 0 : position_y + 10;
+		});        
+	}
+	setInterval(designMatrix, 60);
+}
+}
+        // JavaScript code for the text animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('textCanvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+            // ... Rest of the text animation code ...
+        });
+    </script>
+	<script src="assets/js/script.min.js"></script>
+	<canvas id="matrixCanvas"></canvas>
+    <canvas id="textCanvas" style="display:none;"></canvas>
+    <script src="matrix.js"></script>
+    <script src="textAnimation.js"></script>
+</body>
+</html>
